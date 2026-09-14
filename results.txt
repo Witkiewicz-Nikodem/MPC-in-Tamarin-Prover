@@ -1,0 +1,249 @@
+  processing time: 16.82s
+  
+  sources (all-traces): verified (52 steps)
+  RCV_reachability (exists-trace): verified (7 steps)
+  Ev_m_reachability (exists-trace): verified (8 steps)
+  Ev_h_reachability (exists-trace): verified (7 steps)
+  Input_reachability (exists-trace): verified (5 steps)
+  mal_reachability_1 (exists-trace): verified (6 steps)
+  mal_reachability_2 (exists-trace): verified (6 steps)
+  mal_reachability_3 (exists-trace): verified (6 steps)
+  mal_reachability_4 (exists-trace): verified (6 steps)
+  Sec_MPC_reachability (exists-trace): verified (10 steps)
+  Independence_of_inputs_reachability_1 (exists-trace): verified (5 steps)
+  Independence_of_inputs_reachability_2 (exists-trace): verified (5 steps)
+  Correctness_reachability (exists-trace): verified (7 steps)
+  Correctness_reachability_2 (exists-trace): verified (12 steps)
+  Adversary_choose_2_mal_reachability (exists-trace): verified (6 steps)
+  Adversary_choose_2_honest_send_reachability (exists-trace): verified (6 steps)
+  Adversary_choose_2_honest_not_send_reachability (exists-trace): verified (6 steps)
+  Adversary_choose_1_mal_reachability (exists-trace): verified (7 steps)
+  Adversary_choose_1_honest_send_reachability (exists-trace): verified (7 steps)
+  Adversary_choose_1_honest_not_send_reachability (exists-trace): verified (7 steps)
+  Results_sent_reachability (exists-trace): verified (8 steps)
+  privacy_hold (all-traces): verified (65 steps)
+  privacy_violated_first_party (exists-trace): verified (9 steps)
+  privacy_violated_second_party (exists-trace): verified (9 steps)
+  correctness_hold (all-traces): verified (44 steps)
+  correctness_violated_by_first_party (exists-trace): verified (10 steps)
+  correctness_violated_by_second_party (exists-trace): verified (10 steps)
+  independence_of_inputs_hold (all-traces): verified (12 steps)
+  independence_of_inputs_violated_first_party (exists-trace): verified (9 steps)
+  independence_of_inputs_violated_second_party (exists-trace): verified (9 steps)
+  output_delivery_a_party_without_output (all-traces): verified (15 steps)
+  Output_delivery_hold (all-traces): verified (18 steps)
+  O_viol_corrupted_party_use_output (exists-trace): verified (8 steps)
+  O_viol_fst_party (exists-trace): verified (10 steps)
+  O_viol_snd_party (exists-trace): verified (9 steps)
+
+==============================================================================
+================================================================================
+TIME / RESOURCE USAGE REPORT
+================================================================================
+Command being timed: "tamarin-prover ./complexity_measures/2_party/MPC.spthy --prove"
+	User time (seconds): 61.69
+	System time (seconds): 3.21
+	Percent of CPU this job got: 383%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:16.90
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 391736
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 353
+	Minor (reclaiming a frame) page faults: 99649
+	Voluntary context switches: 130618
+	Involuntary context switches: 1096
+	Swaps: 0
+	File system inputs: 56520
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+
+================================================================================
+TAMARIN RESULT
+================================================================================
+================================================================================
+EXIT CODE: 0
+================================================================================
+  processing time: 628.78s
+  
+  WARNING: 1 wellformedness check failed!
+           The analysis results might be wrong!
+  
+  sources (all-traces): verified (173 steps)
+  RCV_reachability (exists-trace): verified (9 steps)
+  Ev_m_reachability (exists-trace): verified (8 steps)
+  Ev_h_reachability (exists-trace): verified (10 steps)
+  Input_reachability (exists-trace): verified (6 steps)
+  mal_reachability_1 (exists-trace): verified (7 steps)
+  mal_reachability_2 (exists-trace): verified (7 steps)
+  mal_reachability_3 (exists-trace): verified (7 steps)
+  mal_reachability_4 (exists-trace): verified (7 steps)
+  mal_reachability_5 (exists-trace): verified (7 steps)
+  mal_reachability_6 (exists-trace): verified (7 steps)
+  mal_reachability_7 (exists-trace): verified (7 steps)
+  mal_reachability_8 (exists-trace): verified (7 steps)
+  P_violation_finish (exists-trace): verified (9 steps)
+  Sec_MPC_reachability (exists-trace): verified (12 steps)
+  Independence_of_inputs_reachability_1 (exists-trace): verified (8 steps)
+  Independence_of_inputs_reachability_2 (exists-trace): verified (8 steps)
+  Independence_of_inputs_reachability_3 (exists-trace): verified (7 steps)
+  Correctness_reachability (exists-trace): verified (9 steps)
+  Correctness_reachability_2 (exists-trace): verified (18 steps)
+  Adv_choose_1_mal_reachability (exists-trace): verified (9 steps)
+  Adversary_choose_1_honest_send_reachability (exists-trace): verified (9 steps)
+  Adversary_choose_1_honest_not_send_reachability (exists-trace): verified (9 steps)
+  Adv_choose_2_mal_reachability (exists-trace): verified (9 steps)
+  Adversary_choose_2_honest_send_reachability (exists-trace): verified (9 steps)
+  Adversary_choose_2_honest_not_send_reachability (exists-trace): verified (9 steps)
+  Adv_choose_3_mal_reachability (exists-trace): verified (9 steps)
+  Adversary_choose_3_honest_send_reachability (exists-trace): verified (9 steps)
+  Adversary_choose_3_honest_not_send_reachability (exists-trace): verified (9 steps)
+  privacy_hold (all-traces): verified (44 steps)
+  privacy_violated_fst_party (exists-trace): verified (6 steps)
+  privacy_violated_snd_party (exists-trace): verified (6 steps)
+  privacy_violated_3rd_party (exists-trace): verified (6 steps)
+  correctness_hold (all-traces): verified (115 steps)
+  correctness_violated_fst_party (exists-trace): verified (13 steps)
+  correctness_violated_snd_party (exists-trace): verified (13 steps)
+  correctness_violated_3rd_party (exists-trace): verified (13 steps)
+  independence_of_inputs_hold (all-traces): verified (41 steps)
+  independence_of_inputs_violated_first_party (exists-trace): verified (9 steps)
+  independence_of_inputs_violated_second_party (exists-trace): verified (9 steps)
+  independence_of_inputs_violated_3rd_party (exists-trace): verified (8 steps)
+  output_delivery_a_party_without_output (all-traces): verified (170 steps)
+  Output_delivery_hold (all-traces): verified (34 steps)
+  O_viol_corrupted_party_use_output (exists-trace): verified (11 steps)
+  O_viol_fst_party (exists-trace): verified (13 steps)
+  O_viol_snd_party (exists-trace): verified (13 steps)
+  O_viol_3rd_party (exists-trace): verified (13 steps)
+
+==============================================================================
+================================================================================
+TIME / RESOURCE USAGE REPORT
+================================================================================
+Command being timed: "tamarin-prover ./complexity_measures/3_party/MPC.spthy --prove"
+	User time (seconds): 2171.57
+	System time (seconds): 120.35
+	Percent of CPU this job got: 364%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 10:29.33
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 8176152
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 2076290
+	Voluntary context switches: 7254167
+	Involuntary context switches: 48929
+	Swaps: 0
+	File system inputs: 48
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+
+================================================================================
+TAMARIN RESULT
+================================================================================
+================================================================================
+EXIT CODE: 0
+================================================================================
+  processing time: 1477.73s
+  
+  WARNING: 1 wellformedness check failed!
+           The analysis results might be wrong!
+  
+  sources (all-traces): verified (651 steps)
+  Independence_of_inputs_reachability_1 (exists-trace): verified (7 steps)
+  Independence_of_inputs_reachability_2 (exists-trace): verified (7 steps)
+  Independence_of_inputs_reachability_3 (exists-trace): verified (7 steps)
+  Independence_of_inputs_reachability_4 (exists-trace): verified (7 steps)
+  Correctness_reachability (exists-trace): verified (11 steps)
+  Correctness_reachability_2 (exists-trace): verified (16 steps)
+  RCV_reachability (exists-trace): verified (11 steps)
+  Ev_m_reachability (exists-trace): verified (8 steps)
+  Ev_h_reachability (exists-trace): verified (12 steps)
+  Input_reachability (exists-trace): verified (7 steps)
+  mal_reachability_hhhh (exists-trace): verified (8 steps)
+  mal_reachability_hhhm (exists-trace): verified (8 steps)
+  mal_reachability_hhmh (exists-trace): verified (8 steps)
+  mal_reachability_hmhh (exists-trace): verified (8 steps)
+  mal_reachability_mhhh (exists-trace): verified (8 steps)
+  mal_reachability_hhmm (exists-trace): verified (8 steps)
+  mal_reachability_hmhm (exists-trace): verified (8 steps)
+  mal_reachability_mhhm (exists-trace): verified (8 steps)
+  mal_reachability_hmmh (exists-trace): verified (8 steps)
+  mal_reachability_mhmh (exists-trace): verified (8 steps)
+  mal_reachability_mmhh (exists-trace): verified (8 steps)
+  mal_reachability_hmmm (exists-trace): verified (8 steps)
+  mal_reachability_mhmm (exists-trace): verified (8 steps)
+  mal_reachability_mmhm (exists-trace): verified (8 steps)
+  mal_reachability_mmmh (exists-trace): verified (8 steps)
+  mal_reachability_mmmm (exists-trace): verified (8 steps)
+  P_violation_finish (exists-trace): verified (11 steps)
+  privacy_hold (all-traces): verified (120 steps)
+  privacy_violated_1st_party (exists-trace): verified (7 steps)
+  privacy_violated_2nd_party (exists-trace): verified (7 steps)
+  privacy_violated_3rd_party (exists-trace): verified (7 steps)
+  privacy_violated_4th_party (exists-trace): verified (7 steps)
+  correctness_hold (all-traces): verified (268 steps)
+  correctness_violated_fst_party (exists-trace): verified (8 steps)
+  correctness_violated_snd_party (exists-trace): verified (8 steps)
+  correctness_violated_3rd_party (exists-trace): verified (8 steps)
+  correctness_violated_4th_party (exists-trace): verified (8 steps)
+  independence_of_inputs_hold (all-traces): verified (2 steps)
+  independence_of_inputs_violated1 (exists-trace): verified (8 steps)
+  independence_of_inputs_violated2 (exists-trace): verified (8 steps)
+  independence_of_inputs_violated3 (exists-trace): verified (8 steps)
+  independence_of_inputs_violated4 (exists-trace): verified (10 steps)
+  output_delivery_a_party_without_output (all-traces): verified (1060 steps)
+  Output_delivery_hold (all-traces): verified (67 steps)
+  O_viol_corrupted_party_use_output (exists-trace): verified (13 steps)
+  O_viol_fst_party (exists-trace): verified (16 steps)
+  O_viol_snd_party (exists-trace): verified (16 steps)
+  O_viol_3rd_party (exists-trace): verified (16 steps)
+  O_viol_4th_party (exists-trace): verified (16 steps)
+
+==============================================================================
+================================================================================
+TIME / RESOURCE USAGE REPORT
+================================================================================
+Command being timed: "tamarin-prover ./complexity_measures/4_party/MPC.spthy --prove"
+	User time (seconds): 4753.46
+	System time (seconds): 251.73
+	Percent of CPU this job got: 338%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 24:38.11
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 7117620
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 2184663
+	Voluntary context switches: 16994718
+	Involuntary context switches: 153822
+	Swaps: 0
+	File system inputs: 56
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+
+================================================================================
+TAMARIN RESULT
+================================================================================
+================================================================================
+EXIT CODE: 0
+================================================================================

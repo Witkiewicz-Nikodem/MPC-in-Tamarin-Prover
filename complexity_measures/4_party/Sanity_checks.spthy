@@ -1,0 +1,122 @@
+/* Sanity checks */
+
+lemma Independence_of_inputs_reachability_1 [heuristic={Ex_lemmas}]:
+exists-trace
+"Ex #i. Dep_1()@i"
+
+lemma Independence_of_inputs_reachability_2 [heuristic={Ex_lemmas}]:
+exists-trace
+"Ex #i. Dep_2()@i"
+
+lemma Independence_of_inputs_reachability_3 [heuristic={Ex_lemmas}]:
+exists-trace
+"Ex #i. Dep_3()@i"
+
+lemma Independence_of_inputs_reachability_4 [heuristic={Ex_lemmas}]:
+exists-trace
+"Ex #i. Dep_4()@i"
+
+lemma Correctness_reachability[heuristic={Ex_lemmas}]:
+exists-trace
+"Ex #i. Correctness()@i"
+
+lemma Correctness_reachability_2[heuristic={Ex_lemmas}]:
+exists-trace
+"Ex inA inB inC inD TP #i #k1 #k2 #k3 #k4
+    .RCV_data(inA,inB,inC,inD)@i
+    &Use_r(cf(inA,inB,inC,inD))@k1 & Use_TP(TP)@k1
+    &Use_r(cf(inA,inB,inC,inD))@k2 & Use_TP(TP)@k2
+    &Use_r(cf(inA,inB,inC,inD))@k3 & Use_TP(TP)@k3
+    &Use_r(cf(inA,inB,inC,inD))@k4 & Use_TP(TP)@k4"
+
+lemma RCV_reachability[heuristic={Ex_lemmas}]:
+exists-trace
+"Ex  #i. RCV()@i"
+
+lemma Ev_m_reachability[heuristic={Ex_lemmas}]:
+exists-trace
+"Ex  #i. EV_m()@i"
+
+lemma Ev_h_reachability[heuristic={Ex_lemmas}]:
+exists-trace
+"Ex  #i. EV_h()@i"
+
+lemma Input_reachability[heuristic={Ex_lemmas}]:
+exists-trace
+"Ex X #i. H_in(X)@i"
+
+// 1 m
+
+lemma mal_reachability_hhhh[heuristic={Ex_lemmas}]:
+exists-trace
+"Ex #i. HM(honest, honest, honest, honest)@i"
+
+lemma mal_reachability_hhhm[heuristic={Ex_lemmas}]:
+exists-trace
+"Ex #i. HM(honest, honest, honest, mal)@i"
+
+lemma mal_reachability_hhmh[heuristic={Ex_lemmas}]:
+exists-trace
+"Ex #i. HM(honest, honest, mal, honest)@i"
+
+lemma mal_reachability_hmhh[heuristic={Ex_lemmas}]:
+exists-trace
+"Ex #i. HM(honest, mal, honest, honest)@i"
+
+lemma mal_reachability_mhhh[heuristic={Ex_lemmas}]:
+exists-trace
+"Ex #i. HM(mal, honest, honest, honest)@i"
+
+// 2 m
+
+lemma mal_reachability_hhmm[heuristic={Ex_lemmas}]:
+exists-trace
+"Ex #i. HM(honest, honest, mal, mal)@i"
+
+lemma mal_reachability_hmhm[heuristic={Ex_lemmas}]:
+exists-trace
+"Ex #i. HM(honest, mal, honest, mal)@i"
+
+lemma mal_reachability_mhhm[heuristic={Ex_lemmas}]:
+exists-trace
+"Ex #i. HM(mal, honest, honest, mal)@i"
+
+lemma mal_reachability_hmmh[heuristic={Ex_lemmas}]:
+exists-trace
+"Ex #i. HM(honest, mal, mal, honest)@i"
+
+lemma mal_reachability_mhmh[heuristic={Ex_lemmas}]:
+exists-trace
+"Ex #i. HM(mal, honest, mal, honest)@i"
+
+lemma mal_reachability_mmhh[heuristic={Ex_lemmas}]:
+exists-trace
+"Ex #i. HM(mal, mal, honest, honest)@i"
+
+// 3 mal
+
+lemma mal_reachability_hmmm[heuristic={Ex_lemmas}]:
+exists-trace
+"Ex #i. HM(honest, mal, mal, mal)@i"
+
+lemma mal_reachability_mhmm[heuristic={Ex_lemmas}]:
+exists-trace
+"Ex #i. HM(mal, honest, mal, mal)@i"
+
+lemma mal_reachability_mmhm[heuristic={Ex_lemmas}]:
+exists-trace
+"Ex #i. HM(mal, mal, honest, mal)@i"
+
+lemma mal_reachability_mmmh[heuristic={Ex_lemmas}]:
+exists-trace
+"Ex #i. HM(mal, mal, mal, honest)@i"
+
+//4 mal
+
+lemma mal_reachability_mmmm[heuristic={Ex_lemmas}]:
+exists-trace
+"Ex #i. HM(mal, mal, mal, mal)@i"
+
+lemma P_violation_finish[heuristic={Ex_lemmas}]:
+exists-trace
+"Ex #i. Privacy_Violation()@i"

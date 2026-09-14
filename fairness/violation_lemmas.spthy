@@ -1,0 +1,116 @@
+/* violation lemmas */
+
+////////////////
+/*  Privacy   */
+////////////////
+
+lemma privacy_hold[heuristic={All_lemmas}]:
+"All A G inA #i
+ .Inx(A,G,inA)@i
+ &(not Ex X #k. P_Corrupted(X)@k)    
+    ==> not Ex #k1. K(inA)@k1"
+
+
+lemma Compromise:
+exists-trace
+"Ex data #i. In_compromised(data)@i"
+
+lemma privacy_violated_first_party:
+exists-trace
+"Ex A B G inA #i1 #i2 #j
+    .Group_parties(A,B)@i1
+    &Inx(A,G,inA)@i2
+    &(not Ex #k. P_Corrupted(A)@k)
+    &K(inA)@j"
+
+lemma privacy_violated_second_party:
+exists-trace
+"Ex A B G inB #i1 #i2 #j
+    .Group_parties(A,B)@i1
+    &Inx(B,G,inB)@i2
+    &(not Ex #k. P_Corrupted(B)@k)
+    &K(inB)@j"
+
+
+////////////////
+/* Correctnes */
+////////////////
+
+lemma correctness_hold[heuristic={All_lemmas}]:
+"(not Ex X #k. P_Corrupted(X)@k)   
+    ==> not Ex #k. Use_r(true)@k"
+
+lemma correctness_violated_by_first_party[heuristic={Ex_lemmas}]:
+exists-trace
+"Ex A B #i #j #l
+    .Group_parties(A,B)@i
+    &Use_P(A)@j & Use_r(true)@j
+    &Correctness()@l
+    & (not Ex #k1. P_Corrupted(B)@k1)"
+
+lemma correctness_violated_by_second_party[heuristic={Ex_lemmas}]:
+exists-trace
+"Ex A B #i #j #l
+    .Group_parties(A,B)@i
+    &Use_P(A)@j & Use_r(true)@j
+    &Correctness()@l
+    & (not Ex #k1. P_Corrupted(A)@k1)"
+
+/////////////////////////////////
+// adversary violated delivery //
+/////////////////////////////////
+
+lemma output_delivery_a_party_without_output[heuristic={All_lemmas}]:
+"All X #i
+    .O_mal(X)@i
+    ==> (not Ex #j. Use_A(X)@j)"
+
+lemma Output_delivery_hold[heuristic={All_lemmas}]:
+"(not Ex X #k. P_Corrupted(X)@k)   
+    ==> not (Ex #i. ODV()@i)"
+
+lemma O_viol_corrupted_party_use_output[heuristic={Ex_lemmas}]:
+exists-trace
+"Ex P #i #j
+    .O_mal_delivered(P)@i & Use_P(P)@j"
+
+lemma O_viol_by_first_party[heuristic={Ex_lemmas}]:
+exists-trace
+"Ex A B G #i1 #i2 #j 
+    .T_init_G(G)@i1 & Groupp(G)@i2 & Group_parties(A,B)@i2
+    &O_viol()@j
+    &(not (Ex #k. P_Corrupted(A)@k))"
+
+
+lemma O_viol_by_second_party[heuristic={Ex_lemmas}]:
+exists-trace
+"Ex A B G #i1 #i2 #j 
+    .T_init_G(G)@i1 & Groupp(G)@i2 & Group_parties(A,B)@i2
+    &O_viol()@j
+    &(not (Ex #k. P_Corrupted(B)@k))"
+
+////////////////
+/*Independence*/
+////////////////
+
+lemma independence_of_inputs_hold:
+"(not Ex X #k. P_Corrupted(X)@k)  
+    ==> not (Ex #i. Ind()@i)"
+
+
+lemma independence_of_inputs_violated_by_first_party[heuristic={Ex_lemmas}]:
+exists-trace
+"Ex A B G inB #i #i1 #j
+    . Group_parties(A,B)@i
+    & Inx(B,G,inB)@i1
+    & (not Ex #k. In_compromised(inB)@k)
+    & Ind()@j"
+
+lemma independence_of_inputs_violated_by_second_party[heuristic={Ex_lemmas}]:
+exists-trace
+"Ex A B G inA #i #i1 #j
+    . Group_parties(A,B)@i
+    & Inx(A,G,inA)@i1 
+    & (not Ex #k. In_compromised(inA)@k)
+    & Ind()@j"
+

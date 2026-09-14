@@ -1,0 +1,22 @@
+tactic: Sources
+presort: S
+prio:
+    regex ".*[+][+].*"
+    regex ".*last.*"
+    regex ".*=.*"
+
+tactic: Ex_lemmas
+prio:
+    regex ".*[+][+].*"
+    regex ".*=.*"
+    regex ".*input.*"
+
+tactic: All_lemmas
+prio:
+    regex ".*EV_m.*"
+    regex ".*input.*"
+    regex ".*Eval_f_step.*"
+    regex ".*=.*"
+    regex ".*[+][+].*"
+deprio:
+    regex ".*Snd_r.*"

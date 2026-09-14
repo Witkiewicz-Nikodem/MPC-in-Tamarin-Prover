@@ -1,0 +1,29 @@
+/* violation lemmas */
+
+lemma output_delivery_a_party_without_output[heuristic={All_lemmas}]:
+"All X #i
+    .O_mal(X)@i
+    ==> (not Ex #j. Use_A(X)@j)"
+
+lemma Output_delivery_hold[heuristic={All_lemmas}]:
+"(not Ex X #k. P_Corrupted(X)@k)   
+    ==> not (Ex #i. ODV()@i)"
+
+lemma O_viol_corrupted_party_use_output[heuristic={Ex_lemmas}]:
+exists-trace
+"Ex P #i #j
+    .O_mal_delivered(P)@i & Use_P(P)@j"
+
+lemma O_viol_by_first_party[heuristic={Ex_lemmas}]:
+exists-trace
+"Ex A B G #i1 #i2 #j 
+    .T_init_G(G)@i1 & Groupp(G)@i2 & Group_parties(A,B)@i2
+    &O_viol()@j
+    &(not (Ex #k. P_Corrupted(A)@k))"
+
+lemma O_viol_by_second_party[heuristic={Ex_lemmas}]:
+exists-trace
+"Ex A B G #i1 #i2 #j 
+    .T_init_G(G)@i1 & Groupp(G)@i2 & Group_parties(A,B)@i2
+    &O_viol()@j
+    &(not (Ex #k. P_Corrupted(B)@k))"

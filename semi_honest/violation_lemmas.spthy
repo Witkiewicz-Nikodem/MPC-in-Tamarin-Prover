@@ -1,0 +1,34 @@
+/* violation lemmas */
+
+////////////////
+/*  Privacy   */
+////////////////
+
+lemma privacy_hold[heuristic={All_lemmas}]:
+"All A G inA #i
+ .Inx(A,G,inA)@i
+ &(not Ex X #k. P_Corrupted(X)@k)    
+    ==> not Ex #k1. K(inA)@k1"
+
+
+lemma Compromise:
+exists-trace
+"Ex data #i. In_compromised(data)@i"
+
+lemma privacy_violated_first_party:
+exists-trace
+"Ex A B G inA #i1 #i2 #j
+    .Group_parties(A,B)@i1
+    &Inx(A,G,inA)@i2
+    &(not Ex #k. P_Corrupted(A)@k)
+    &K(inA)@j"
+
+lemma privacy_violated_second_party:
+exists-trace
+"Ex A B G inB #i1 #i2 #j
+    .Group_parties(A,B)@i1
+    &Inx(B,G,inB)@i2
+    &(not Ex #k. P_Corrupted(B)@k)
+    &K(inB)@j"
+
+

@@ -1,0 +1,271 @@
+theory MPC
+begin
+builtins: multiset, symmetric-encryption, natural-numbers
+functions: honest/0, mal/0, true/0, false/0
+///////////////////////
+//   Channel rules   //
+///////////////////////
+
+rule Party:
+    []
+  --[]->
+    [!Party($P)]
+
+rule Corruption:
+    [!Party(P)]
+  --[P_Corrupted(P)]->
+    [!Corrupted(P)]
+
+rule Snd_sec:
+    [SndS(sender, receiver, msg)]
+  --[]->
+    [Sec(sender, receiver, msg)]
+
+rule Rcv_sec:
+    [Sec(sender, receiver, msg)]
+  --[]->
+    [RcvS(sender, receiver, msg)]
+
+rule Inject:
+    [In(<sender, receiver, m>), !Corrupted(sender)]
+  --[Inject(sender, receiver, m)]->
+    [SndS(sender, receiver, m)]
+
+rule Eavesdrop: 
+    [Sec(sender, receiver, msg), !Corrupted(receiver)]
+  --[Eavesdrop(), Eeav_parties(sender,receiver)]->
+    [RcvS(sender, receiver, msg), Out(<sender, receiver, msg>)]
+
+rule MPC_establish_group:
+let
+    G = <A,B>
+in
+    [!Party(A), !Party(B)]
+  --[Groupp(G), Group_parties(A,B), _restrict(not A = B)]->
+    [!Group(G), Out(G)]
+
+rule Honest_MPC_input:
+let
+    h_in = <~data, honest>
+in
+    [Fr(~data), !TP(TP, G), !Party(P)]
+  --[_restrict(P << G), Inx(P,G,~data), H_in(~data)]->
+    [SndS(P, TP, h_in)]
+
+
+rule T_Init:
+    [!Group(G), Fr(~TP)]
+  --[T_init_G(G), T_init(), T_init_TP(~TP)]->
+    [T_RCV(~TP, G), !TP(~TP, G), Out(~TP)]
+
+rule RCV: 
+let
+    AA = <A,dataA,hmA>
+    BB = <B,dataB,hmB>
+in
+    [T_RCV(TP, G)
+    ,RcvS(A, TP, <dataA,hmA>)
+    ,RcvS(B, TP, <dataB,hmB>)]
+  --[_restrict(<A,B> = G)
+    ,_restrict((hmA = honest | hmA = mal)
+              &(hmB = honest | hmB = mal)
+              )
+    ,T_received(dataA,dataB)
+    ,RCV()]->
+    [Eval_i( AA, BB)]
+
+rule Eval_sec:
+    [Eval_i(<A,dataA,hmA>, <B,dataB,hmB>)]
+    --[_restrict(not (mal << hmA ++ hmB)), Eval_sec_parties(A,B)]->
+    [Eval( A,dataA,B,dataB)]
+
+rule Eval_m:
+    [Eval_i(<A,dataA,hmA>, <B,dataB,hmB>)]
+    --[_restrict(mal << hmA ++ hmB), HM(hmA, hmB)]->
+    [Eval_m_0(A, dataA, hmA, B, dataB, hmB)]
+
+
+////////////////////////////
+//   F evaluation         //
+////////////////////////////
+rule Eval_inputs_equals:
+    [Eval(A,data,B,data)]
+  --[]->
+    [S_Result(A,B,true,true)]
+
+rule Eval_inputs_not_equals:
+    [Eval(A,dataA,B,dataB)]
+  --[_restrict(not (dataA = dataB))]->
+    [S_Result(A,B,false,false)]
+
+
+////////////////////////////
+//       Send Result      //
+////////////////////////////
+
+rule Send_result:
+    [S_Result(A,B,x,y), !TP(TP, G)]
+  --[Results_sent(), Result_sent(A,B,x,y)]->
+    [SndS(TP, A, x), SndS(TP, B, y)]
+
+////////////////////////////
+//   PRIVACY VIOLATION    //
+////////////////////////////
+
+rule Privacy_violation_init:
+    let
+        AA = <A,dataA,hmA>
+        BB = <B,dataB,hmB>
+    in
+    [Eval_m_0(A, dataA, hmA, B, dataB, hmB)]
+    --[Privacy_Violation(), In_compromised(dataA), In_compromised(dataB)]->
+    [Out(dataA), Out(dataB)]
+
+////////////////////////////
+// independence of inputs //
+////////////////////////////
+
+rule Independence_of_inputs_1:
+    [Eval_m_0(A, dataA, mal, B, dataB, honest)]
+  --[EV(), EV_m(), EV_1(), Ind()]->
+    [Eval(A,dataB,B,dataB)]
+
+rule Independence_of_inputs_2:
+    [Eval_m_0(A, dataA, honest, B, dataB, mal)]
+  --[EV(), EV_m(), EV_2(), Ind()]->
+    [Eval(A,dataA,B,dataA)]
+
+////////////////////////////
+// Correctness            //
+////////////////////////////
+
+rule Correctness_1:
+    [Eval_m_0(A, dataA, honest, B, dataB, mal)]
+  --[EV(), EV_h(), Correctness()]->
+    [S_Result(A,B,true,false)]
+
+rule Correctness_2:
+    [Eval_m_0(A, dataA, mal, B, dataB, honest)]
+  --[EV(), EV_h(), Correctness()]->
+    [S_Result(A,B,false,true)]
+
+rule Correctness_3:
+    [Eval_m_0(A, dataA, mal, B, dataB, honest)]
+  --[EV(), EV_h(), Correctness()]->
+    [S_Result(A,B,true,true)]
+
+///////////////////////////////
+// Output delivery attributes//
+///////////////////////////////
+
+// eval output 
+rule Eval_m_inputs_equals_true:
+    [Eval_m_0(A, data, hmA, B, data, hmB)]
+  --[EV(), EV_m(), Eval_m_inputs_equals(), ODV()]->
+    [Eval_Result_output_step_0(A, hmA, B, hmB, true)]
+
+rule Eval_m_inputs_equals_false:
+    [Eval_m_0(A, dataA, hmA, B, dataB, hmB)]
+  --[_restrict(not dataA = dataB), EV(), EV_m(), Eval_m_inputs_equals(), ODV()]->
+    [Eval_Result_output_step_0(A, hmA, B, hmB, false)]
+
+//////////////////////////////////////////////////////
+// adversary choose which honest party gets output  //
+//////////////////////////////////////////////////////
+
+// 1
+rule Adversar_choose_1_mal:
+    [Eval_Result_output_step_0(A, mal, B, hmB, result), !TP(TP, G)]
+  --[Adv_choose_out_1_mal(), EV(), EV_f(result), O_mal_delivered(A)]->
+    [Eval_Result_adv_choose_step_1(B, hmB, result), SndS(TP, A, result)]
+
+rule Adversar_choose_1_honest_send:
+    [Eval_Result_output_step_0(A, honest, B, hmB, result), !TP(TP, G)]
+  --[Adv_choose_out_1_honest_send(), EV(), EV_f(result), O_honest_delivered(A)]->
+    [Eval_Result_adv_choose_step_1(B, hmB, result), SndS(TP, A, result)]
+
+rule Adversar_choose_1_honest_not_send:
+    [Eval_Result_output_step_0(A, honest, B, hmB, result), !TP(TP, G)]
+  --[Adv_choose_out_1_honest_not_send(), EV(), EV_f(result), O_mal(A), O_viol()]->
+    [Eval_Result_adv_choose_step_1(B, hmB, result)]
+
+// 2
+rule Adversar_choose_2_mal:
+    [Eval_Result_adv_choose_step_1(B, mal, result), !TP(TP, G)]
+  --[Adv_choose_out_finish_mal(), EV(), EV_f(result), O_mal_delivered(B)]->
+    [SndS(TP, B, result)]
+
+rule Adversar_choose_2_honest_send:
+    [Eval_Result_adv_choose_step_1(B, honest, result), !TP(TP, G)]
+  --[Adv_choose_out_finish_honest_send(), EV(), EV_f(result), O_honest_delivered(B)]->
+    [SndS(TP, B, result)]
+
+rule Adversar_choose_2_honest_not_send:
+    [Eval_Result_adv_choose_step_1(B, honest, result), !TP(TP, G)]
+  --[Adv_choose_out_finish_honest_not_send(), EV(), EV_f(result), O_mal(B), O_viol()]->
+    []
+
+
+////////////////////////////
+// USE rules              //
+////////////////////////////
+
+rule Party_receive_result:
+[RcvS(TP, P, r), !TP(TP, G)]--[Use_TP(TP), Use_P(P), Use_r(r)]->[]
+
+////////////////////////////
+// SOURCES LEMMAS         //
+////////////////////////////
+
+
+lemma sources [sources, use_induction]:
+"All input #i. In_compromised(input)@i ==>(
+    (Ex #j1. KU(input)@j1 & j1 < #i)
+    |
+    (Ex #j2. H_in(input)@j2 & #j2 < #i)
+    )"
+
+
+///////////////////
+/* Restrictions  */
+///////////////////
+
+restriction adversary_cannot_corrupt_trusted_party:
+"All TP #i
+    .T_init(TP)@i
+    ==> not Ex #j .P_Corrupted(TP)@j"
+
+restriction only_once_G1:
+"All G1 G2 #i #j. Groupp(G1)@i & Groupp(G2)@j ==> #i=#j"
+
+restriction only_one_corruption_per_party:
+"All X1 #i #j. P_Corrupted(X1)@i & P_Corrupted(X1)@j ==> #i = #j"
+
+restriction Once_corrupted_no_honest_input:
+"All P #i. P_Corrupted(P)@i ==> not Ex G data #j. Inx(P,G,data)@j"
+
+restriction Only_one_mpc:
+"All dA1 dB1 dA2 dB2 #i #j. T_received(dA1,dB1)@i & T_received(dA2,dB2)@j ==> #i = #j"
+
+///////////////////
+/* HELPER LEMMAS */
+///////////////////
+
+// Induction for T_RCV rules
+
+// PRivacy lemmas
+
+
+/*
+1. chain of privacy violations 
+2. full input in RC
+3. Jeżeli  privacy violation da cos na output to adversarz albo znal to wczesniej albo jest to fresh value z honest input.
+4. ujawniaj tylko honest input wtedy beda tam tylko fresh values i bedzie gitara siema.
+*/
+
+
+#include "./Sanity_checks.spthy"
+#include "./violation_lemmas.spthy"
+#include "./tactics"
+
+end

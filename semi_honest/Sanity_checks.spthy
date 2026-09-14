@@ -1,0 +1,29 @@
+/* Sanity checks */
+
+lemma honest_input_received:
+exists-trace
+"Ex data x #i #j
+    .H_in(data)@i
+    &T_received(data, x)@j"
+
+lemma honest_input_received_2:
+exists-trace
+"Ex data x #i #j
+    .H_in(data)@i
+    &T_received(x, data)@j"
+
+lemma Sec_MPC_reachability[heuristic={Ex_lemmas}]:
+exists-trace
+"Ex A B #i #j
+    .Eval_sec_parties(A,B)@i
+    &Result_sent(A,B,false,false)@j"
+
+lemma mal_reachability_1[heuristic={Ex_lemmas}]:
+exists-trace
+"Ex #i. HM(mal, honest)@i"
+
+lemma mal_reachability_2[heuristic={Ex_lemmas}]:
+exists-trace
+"Ex #i. HM(honest, mal)@i"
+
+

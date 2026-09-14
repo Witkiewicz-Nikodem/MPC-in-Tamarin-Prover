@@ -1,0 +1,129 @@
+/* Sanity checks */
+lemma RCV_reachability:
+exists-trace
+"Ex #i. RCV()@i"
+
+lemma Ev_m_reachability:
+exists-trace
+"Ex #i. EV_m()@i"
+
+lemma Ev_h_reachability:
+exists-trace
+"Ex #i. EV_h()@i"
+
+lemma Input_reachability:
+exists-trace
+"Ex X #i. H_in(X)@i"
+
+/// all mal options
+lemma mal_reachability_1:
+exists-trace
+"Ex #i. HM(honest, honest, honest)@i"
+
+lemma mal_reachability_2:
+exists-trace
+"Ex #i. HM(honest, honest, mal)@i"
+
+lemma mal_reachability_3:
+exists-trace
+"Ex #i. HM(honest, mal, honest)@i"
+
+lemma mal_reachability_4:
+exists-trace
+"Ex #i. HM(mal, honest, honest)@i"
+
+lemma mal_reachability_5:
+exists-trace
+"Ex #i. HM(honest, mal, mal)@i"
+
+lemma mal_reachability_6:
+exists-trace
+"Ex #i. HM(mal, honest, mal)@i"
+
+lemma mal_reachability_7:
+exists-trace
+"Ex #i. HM(mal, mal, honest)@i"
+
+lemma mal_reachability_8:
+exists-trace
+"Ex #i. HM(mal, mal, mal)@i"
+
+lemma P_violation_finish:
+exists-trace
+"Ex #i. Privacy_Violation()@i"
+
+lemma Sec_MPC_reachability[heuristic={Ex_lemmas}]:
+exists-trace
+"Ex A B C r #i #j
+    .Eval_sec_parties(A,B,C)@i
+    &Result_sent(A,B,C,r,r,r)@j
+    &(not (Ex X #k. P_Corrupted(X)@k))"
+
+
+// attributes
+lemma Independence_of_inputs_reachability_1 [heuristic={Ex_lemmas}]:
+exists-trace
+"Ex #i. Dep_1()@i"
+
+lemma Independence_of_inputs_reachability_2 [heuristic={Ex_lemmas}]:
+exists-trace
+"Ex #i. Dep_2()@i"
+
+lemma Independence_of_inputs_reachability_3 [heuristic={Ex_lemmas}]:
+exists-trace
+"Ex #i. Dep_3()@i"
+
+lemma Correctness_reachability:
+exists-trace
+"Ex #i. Correctness()@i"
+
+lemma Correctness_reachability_2:
+exists-trace
+"Ex inA inB inC TP #i #k1 #k2 #k3
+    .RCV_data(inA,inB,inC)@i
+    &Use_r(cf(inA,inB,inC))@k1 & Use_TP(TP)@k1
+    &Use_r(cf(inA,inB,inC))@k2 & Use_TP(TP)@k2
+    &Use_r(cf(inA,inB,inC))@k3 & Use_TP(TP)@k3
+    & not #k1 = #k2 & not #k1 = #k3 & not #k2 = #k3"
+
+// Output delivery reachability
+
+//1
+lemma Adv_choose_1_mal_reachability[heuristic={Ex_lemmas}]:
+exists-trace
+"Ex #i. Adv_choose_out_1_mal()@i"
+
+lemma Adversary_choose_1_honest_send_reachability[heuristic={Ex_lemmas}]:
+exists-trace
+"Ex #i. Adv_choose_out_1_honest_send()@i"
+
+lemma Adversary_choose_1_honest_not_send_reachability[heuristic={Ex_lemmas}]:
+exists-trace
+"Ex #i. Adv_choose_out_1_honest_not_send()@i"
+
+//2
+lemma Adv_choose_2_mal_reachability[heuristic={Ex_lemmas}]:
+exists-trace
+"Ex #i. Adv_choose_out_2_mal()@i"
+
+lemma Adversary_choose_2_honest_send_reachability[heuristic={Ex_lemmas}]:
+exists-trace
+"Ex #i. Adv_choose_out_2_honest_send()@i"
+
+lemma Adversary_choose_2_honest_not_send_reachability[heuristic={Ex_lemmas}]:
+exists-trace
+"Ex #i. Adv_choose_out_2_honest_not_send()@i"
+
+// 3 - finish
+
+lemma Adv_choose_3_mal_reachability[heuristic={Ex_lemmas}]:
+exists-trace
+"Ex #i. Adv_choose_out_finish_mal()@i"
+
+lemma Adversary_choose_3_honest_send_reachability[heuristic={Ex_lemmas}]:
+exists-trace
+"Ex #i. Adv_choose_out_finish_honest_send()@i"
+
+lemma Adversary_choose_3_honest_not_send_reachability[heuristic={Ex_lemmas}]:
+exists-trace
+"Ex #i. Adv_choose_out_finish_honest_not_send()@i"
